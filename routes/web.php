@@ -13,12 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/feedback', [App\Http\Controllers\FeedbackController::class, 'create']);
-Route::post('/add/feedback', [App\Http\Controllers\FeedbackController::class, 'store']);
+Route::get('/', [App\Http\Controllers\FeedbackController::class, 'create']);
+Route::get('/list', [App\Http\Controllers\FeedbackController::class, 'index'])->middleware('auth');
+Route::post('/create', [App\Http\Controllers\FeedbackController::class, 'store']);

@@ -1942,7 +1942,7 @@ __webpack_require__.r(__webpack_exports__);
         this.loaded = false;
         this.success = false;
         this.errors = {};
-        axios.post('/add/feedback', this.fields).then(function (response) {
+        axios.post('/create', this.fields).then(function (response) {
           _this.fields = {};
           _this.loaded = true;
           _this.success = true;

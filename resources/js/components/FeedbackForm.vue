@@ -60,7 +60,7 @@ export default {
                 this.loaded = false;
                 this.success = false;
                 this.errors = {};
-                axios.post('/add/feedback', this.fields).then(response => {
+                axios.post('/create', this.fields).then(response => {
                     this.fields = {};
                     this.loaded = true;
                     this.success = true;
