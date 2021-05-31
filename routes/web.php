@@ -20,4 +20,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/feedback', [App\Http\Controllers\FeedbackController::class, 'index'])->name('feedback');
+Route::get('/feedback', [App\Http\Controllers\FeedbackController::class, 'create']);
+Route::post('/add/feedback', [App\Http\Controllers\FeedbackController::class, 'store']);

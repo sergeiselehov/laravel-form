@@ -1,57 +1,77 @@
 <template>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Feedback Form</div>
+    <form @submit.prevent="submit">
 
-                <div class="card-body">
-                    <form method="POST">
+        <div v-if="success" class="alert alert-success mt-3">
+            Feedback sent!
+        </div>
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+        <div class="form-group row">
+            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="theme" class="col-md-4 col-form-label text-md-right">Theme</label>
-
-                            <div class="col-md-6">
-                                <input id="theme" type="text" class="form-control" name="theme" required autocomplete="theme">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="text" class="col-md-4 col-form-label text-md-right">Text</label>
-
-                            <div class="col-md-6">
-                                <textarea id="text" class="form-control" name="text" required autocomplete="text"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Send
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
+            <div class="col-md-6">
+                <input id="name" type="text" class="form-control" name="name" v-model="fields.name" autofocus />
+                <div v-if="errors && errors.name" class="text-danger">{{ errors.name[0] }}</div>
             </div>
         </div>
-    </div>
+
+        <div class="form-group row">
+            <label for="theme" class="col-md-4 col-form-label text-md-right">Theme</label>
+
+            <div class="col-md-6">
+                <input id="theme" type="text" class="form-control" name="theme" v-model="fields.theme" />
+                <div v-if="errors && errors.theme" class="text-danger">{{ errors.theme[0] }}</div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="text" class="col-md-4 col-form-label text-md-right">Text</label>
+
+            <div class="col-md-6">
+                <textarea id="text" class="form-control" name="text" v-model="fields.text"></textarea>
+                <div v-if="errors && errors.text" class="text-danger">{{ errors.text[0] }}</div>
+            </div>
+        </div>
+
+        <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    Send
+                </button>
+            </div>
+        </div>
+    </form>
 </template>
 
 <script>
 export default {
     name: "FeedbackForm",
 
-    mounted() {
-        console.log('Component mounted.')
+    data() {
+        return {
+            fields: {},
+            errors: {},
+            success: false,
+            loaded: true
+        }
+    },
+    methods: {
+        submit() {
+            if(this.loaded) {
+                this.loaded = false;
+                this.success = false;
+                this.errors = {};
+                axios.post('/add/feedback', this.fields).then(response => {
+                    this.fields = {};
+                    this.loaded = true;
+                    this.success = true;
+                }).catch(error => {
+                    this.loaded = true;
+                    if(error.response.status === 422) {
+                        this.errors = error.response.data.errors || {};
+                    }
+                });
+            }
+        },
     }
 }
 </script>
