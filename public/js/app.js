@@ -37671,6 +37671,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
+            class: { "is-invalid": _vm.errors.name },
             attrs: { id: "name", type: "text", name: "name", autofocus: "" },
             domProps: { value: _vm.fields.name },
             on: {
@@ -37712,6 +37713,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
+            class: { "is-invalid": _vm.errors.theme },
             attrs: { id: "theme", type: "text", name: "theme" },
             domProps: { value: _vm.fields.theme },
             on: {
@@ -37753,6 +37755,7 @@ var render = function() {
               }
             ],
             staticClass: "form-control",
+            class: { "is-invalid": _vm.errors.text },
             attrs: { id: "text", name: "text" },
             domProps: { value: _vm.fields.text },
             on: {

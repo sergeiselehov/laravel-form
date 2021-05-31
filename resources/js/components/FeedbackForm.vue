@@ -9,7 +9,7 @@
             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
             <div class="col-md-6">
-                <input id="name" type="text" class="form-control" name="name" v-model="fields.name" autofocus />
+                <input id="name" type="text" class="form-control" v-bind:class="{'is-invalid': errors.name}" name="name" v-model="fields.name" autofocus />
                 <div v-if="errors && errors.name" class="text-danger">{{ errors.name[0] }}</div>
             </div>
         </div>
@@ -18,7 +18,7 @@
             <label for="theme" class="col-md-4 col-form-label text-md-right">Theme</label>
 
             <div class="col-md-6">
-                <input id="theme" type="text" class="form-control" name="theme" v-model="fields.theme" />
+                <input id="theme" type="text" class="form-control" v-bind:class="{'is-invalid': errors.theme}" name="theme" v-model="fields.theme" />
                 <div v-if="errors && errors.theme" class="text-danger">{{ errors.theme[0] }}</div>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <label for="text" class="col-md-4 col-form-label text-md-right">Text</label>
 
             <div class="col-md-6">
-                <textarea id="text" class="form-control" name="text" v-model="fields.text"></textarea>
+                <textarea id="text" class="form-control" v-bind:class="{'is-invalid': errors.text}" name="text" v-model="fields.text"></textarea>
                 <div v-if="errors && errors.text" class="text-danger">{{ errors.text[0] }}</div>
             </div>
         </div>
